@@ -1,0 +1,206 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 48.1887
+  longitude: 12.1245
+ 
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 554
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Berlin
+  # Customization file
+  customize: !include customize.yaml
+
+#logger:
+  #default: info
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Sensors
+sensor:
+  # Weather prediction
+  - platform: yr
+  - platform: mqtt
+    name: "Boiler"
+    unit_of_measurement: "°C"
+    state_topic: "tele/pumpe/SENSOR"
+    value_template: '{{ value_json["DS18S20"]["Temperature"] }}'
+    availability_topic: "tele/pumpe/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "GarageTemp"
+    unit_of_measurement: "°C"
+    state_topic: "tele/wallbox/SENSOR"
+    value_template: '{{ value_json["AM2301"]["Temperature"] }}'
+    availability_topic: "tele/wallbox/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "GarageHum"
+    unit_of_measurement: "%"
+    device_class: humidity
+    state_topic: "tele/wallbox/SENSOR"
+    value_template: '{{ value_json["AM2301"]["Humidity"] }}'
+    availability_topic: "tele/wallbox/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "SchreibtischThomas"
+    unit_of_measurement: "Watt"
+    state_topic: "tele/cothomas/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    availability_topic: "tele/cothomas/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: rest
+    name: JSON sonnen
+    json_attributes:
+      - Consumption_W
+      - GridFeedIn_W
+      - Production_W
+      - USOC
+      - Pac_total_W
+    resource: http://192.168.0.115:8080/api/v1/status
+    value_template: '{{ value_json.sonnen }}'
+  - platform: template
+    sensors:
+      sonnen_stromverbrauch:
+        friendly_name: 'Verbrauch'
+        unit_of_measurement: "Watt"
+        value_template: '{{ states.sensor.json_sonnen.attributes["Consumption_W"] }}'
+      sonnen_stromeinspeisung:
+        friendly_name: 'Einspeisung'
+        unit_of_measurement: "Watt"
+        value_template: '{{ states.sensor.json_sonnen.attributes["GridFeedIn_W"] }}'
+      sonnen_stromerzeugung:
+        friendly_name: 'Produktion'
+        unit_of_measurement: "Watt"
+        value_template: '{{ states.sensor.json_sonnen.attributes["Production_W"] }}'
+      sonnen_soc:
+        friendly_name: 'SOC'
+        unit_of_measurement: "%"
+        value_template: '{{ states.sensor.json_sonnen.attributes["USOC"] }}'
+      sonnen_stromspeicher:
+        friendly_name: 'Batterie'
+        unit_of_measurement: "Watt"
+        value_template: '{{ states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
+
+switch:
+  - platform: mqtt
+    name: "Umwälzpumpe"
+    state_topic: "tele/pumpe/STATE"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/pumpe/POWER"
+    availability_topic: "tele/pumpe/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+  - platform: mqtt
+    name: "SchreibtischThomas"
+    state_topic: "tele/cothomas/STATE"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/cothomas/POWER"
+    availability_topic: "tele/cothomas/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+
+history_graph:
+  sonnen4:
+    entities:
+      - sensor.sonnen_stromverbrauch
+      - sensor.sonnen_stromerzeugung
+      - sensor.sonnen_stromeinspeisung
+      - sensor.sonnen_stromspeicher
+    hours_to_show: 4
+    refresh: 0
+  sonnen12:
+    entities:
+      - sensor.sonnen_stromverbrauch
+      - sensor.sonnen_stromerzeugung
+      - sensor.sonnen_stromeinspeisung
+      - sensor.sonnen_stromspeicher
+    hours_to_show: 12
+    refresh: 0
+  sonnen24:
+    entities:
+      - sensor.sonnen_stromverbrauch
+      - sensor.sonnen_stromerzeugung
+      - sensor.sonnen_stromeinspeisung
+      - sensor.sonnen_stromspeicher
+    hours_to_show: 24
+    refresh: 0
+  sonnen_woche:
+    entities:
+      - sensor.sonnen_stromverbrauch
+      - sensor.sonnen_stromerzeugung
+      - sensor.sonnen_stromeinspeisung
+      - sensor.sonnen_stromspeicher
+    hours_to_show: 168
+    refresh: 0
+
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+mqtt:
+  broker: "localhost"
+  username: "dev"
+  password: !secret mqtt_dev_password
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
