@@ -34,3 +34,4 @@ Schalter:
   entities:
     - switch.umwalzpumpe
     - switch.schreibtischthomas
+    - switch.wallbox

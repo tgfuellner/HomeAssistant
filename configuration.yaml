@@ -127,6 +127,7 @@ sensor:
         unit_of_measurement: "Watt"
         value_template: '{{ states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
 
+# Für Tasmota Schalter ist "SetOption59 1" nötig
 switch:
   - platform: mqtt
     name: "Umwälzpumpe"
@@ -146,6 +147,18 @@ switch:
     value_template: "{{ value_json.POWER }}"
     command_topic: "cmnd/cothomas/POWER"
     availability_topic: "tele/cothomas/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+  - platform: mqtt
+    name: "WallBox"
+    state_topic: "tele/wallbox/STATE"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/wallbox/POWER"
+    availability_topic: "tele/wallbox/LWT"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
