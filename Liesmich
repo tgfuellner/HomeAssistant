@@ -1,0 +1,5 @@
+Schau zuerst Changelog an
+
+dann
+
+sudo hassbian-config upgrade homeassistant
