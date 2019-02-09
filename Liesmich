@@ -1,5 +1,9 @@
-Schau zuerst Changelog an
+Update:
+	Schau zuerst Changelog an
 
-dann
+	dann
 
-sudo hassbian-config upgrade homeassistant
+	sudo hassbian-config upgrade homeassistant
+
+Tasmota:
+	SetOption59 1

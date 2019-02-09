@@ -35,3 +35,4 @@ Schalter:
     - switch.umwalzpumpe
     - switch.schreibtischthomas
     - switch.wallbox
+    - switch.leiste
