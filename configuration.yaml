@@ -177,6 +177,18 @@ switch:
     payload_available: "Online"
     payload_not_available: "Offline"
     retain: false
+  - platform: mqtt
+    name: "Charger"
+    state_topic: "tele/charger/STATE"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/charger/POWER"
+    availability_topic: "tele/charger/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
 
 history_graph:
   sonnen4:
