@@ -6,4 +6,11 @@ Update:
 	sudo hassbian-config upgrade homeassistant
 
 Tasmota:
-	SetOption59 1
+	SetOption59 1    # Für switches Verhalten in Homeassist
+
+	TV: Um =00:30 wenn Energieaufnahme<70W --> Schalte aus
+            rule1 on Time#Minute=30 do rule2 1 endon
+            rule2 on Energy#Power<70 do backlog power off; rule2 0 endon
+
+	Umwälzpumpe:
+            rule1 on Ds18s20#Temperature<50 do power off endon on Ds18s20#Temperature>55 do power on endon

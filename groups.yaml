@@ -10,8 +10,8 @@ Wetter:
   entities:
     - history_graph.sonnen4
     - history_graph.sonnen12
-    - history_graph.sonnen24
-    - history_graph.sonnen_woche
+      #- history_graph.sonnen24
+      #- history_graph.sonnen_woche
 Wetter_View:
   name: Graph
   view: yes
@@ -23,6 +23,7 @@ Sensoren:
     - sensor.garagetemp
     - sensor.garagehum
     - sensor.schreibtischthomas
+    - sensor.tv
 Sonnen:
   entities:
     - sensor.sonnen_soc
@@ -34,6 +35,7 @@ Schalter:
   entities:
     - switch.umwalzpumpe
     - switch.schreibtischthomas
+    - switch.tv
     - switch.wallbox
     - switch.leiste
     - switch.charger

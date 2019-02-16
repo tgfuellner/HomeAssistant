@@ -94,6 +94,14 @@ sensor:
     availability_topic: "tele/cothomas/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
+  - platform: mqtt
+    name: "TV"
+    unit_of_measurement: "Watt"
+    state_topic: "tele/tv/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    availability_topic: "tele/tv/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
   - platform: rest
     name: JSON sonnen
     json_attributes:
@@ -147,6 +155,18 @@ switch:
     value_template: "{{ value_json.POWER }}"
     command_topic: "cmnd/cothomas/POWER"
     availability_topic: "tele/cothomas/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+  - platform: mqtt
+    name: "TV"
+    state_topic: "tele/tv/STATE"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/tv/POWER"
+    availability_topic: "tele/tv/LWT"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
