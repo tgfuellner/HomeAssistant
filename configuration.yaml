@@ -102,6 +102,42 @@ sensor:
     availability_topic: "tele/tv/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Waschen,WC,Speis P"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/0/power"
+    unit_of_measurement: "Watt"
+  - platform: mqtt
+    name: "Waschen,WC,Speis E"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/0/energy"
+    value_template: "{{(value | int) / 100}}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Wohnzimmer P"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/1/power"
+    unit_of_measurement: "Watt"
+  - platform: mqtt
+    name: "Wohnzimmer E"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/1/energy"
+    value_template: "{{(value | int) / 100}}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Gang EG P"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/2/power"
+    unit_of_measurement: "Watt"
+  - platform: mqtt
+    name: "Gang EG E"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/2/energy"
+    value_template: "{{(value | int) / 100}}"
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Licht Küche, Speis P"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/3/power"
+    unit_of_measurement: "Watt"
+  - platform: mqtt
+    name: "Licht Küche, Speis E"
+    value_template: "{{(value | int) / 100}}"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/3/energy"
+    unit_of_measurement: "kWh"
   - platform: rest
     name: JSON sonnen
     json_attributes:

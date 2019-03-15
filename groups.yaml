@@ -43,6 +43,14 @@ Schalter:
 Sicherungskasten:
   entities:
     - switch.waschen_wc_speis
+    - sensor.waschen_wc_speis_p
+    - sensor.waschen_wc_speis_e
     - switch.wohnzimmer
+    - sensor.wohnzimmer_p
+    - sensor.wohnzimmer_e
     - switch.gang_eg
+    - sensor.gang_eg_p
+    - sensor.gang_eg_e
     - switch.licht_kuche_speis
+    - sensor.licht_kuche_speis_p
+    - sensor.licht_kuche_speis_e
