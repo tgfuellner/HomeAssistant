@@ -209,6 +209,34 @@ switch:
     payload_available: "Online"
     payload_not_available: "Offline"
     retain: false
+  - platform: mqtt
+    name: "Waschen,WC,Speis"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/0"
+    command_topic: "shellies/shelly4pro-4BCBE4/relay/0/command"
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
+  - platform: mqtt
+    name: "Wohnzimmer"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/1"
+    command_topic: "shellies/shelly4pro-4BCBE4/relay/1/command"
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
+  - platform: mqtt
+    name: "Gang EG"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/2"
+    command_topic: "shellies/shelly4pro-4BCBE4/relay/2/command"
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
+  - platform: mqtt
+    name: "Licht Küche, Speis"
+    state_topic: "shellies/shelly4pro-4BCBE4/relay/3"
+    command_topic: "shellies/shelly4pro-4BCBE4/relay/3/command"
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
 
 history_graph:
   sonnen4:

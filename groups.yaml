@@ -5,6 +5,7 @@ default_view:
     - group.Sonnen
     - group.Sensoren
     - group.Schalter
+    - group.Sicherungskasten
 Wetter:
   name: Wetter
   entities:
@@ -39,3 +40,9 @@ Schalter:
     - switch.wallbox
     - switch.leiste
     - switch.charger
+Sicherungskasten:
+  entities:
+    - switch.waschen_wc_speis
+    - switch.wohnzimmer
+    - switch.gang_eg
+    - switch.licht_kuche_speis
