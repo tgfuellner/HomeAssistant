@@ -14,8 +14,9 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
-#logger:
+logger:
   #default: info
+  default: debug
 
 # Show links to resources in log and frontend
 introduction:
@@ -56,6 +57,20 @@ map:
 
 # Track the sun
 sun:
+
+notify:
+  - name: gmail
+    platform: smtp
+    server: smtp.gmail.com
+    port: 587
+    timeout: 15
+    sender: thomas.gfuellner@gmail.com
+    encryption: starttls
+    username: thomas.gfuellner@gmail.com
+    password: !secret gmail_password
+    recipient:
+      - thomas.gfuellner@gmail.com
+    sender_name: Mein Home Assistant
 
 # Sensors
 sensor:
@@ -170,6 +185,10 @@ sensor:
         friendly_name: 'Batterie'
         unit_of_measurement: "Watt"
         value_template: '{{ states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
+      sonnen_einspeise_minus_speicher:
+        friendly_name: 'Batterie'
+        unit_of_measurement: "Watt"
+        value_template: '{{ states.sensor.json_sonnen.attributes["GridFeedIn_W"] - states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
 
 # Für Tasmota Schalter ist "SetOption59 1" nötig
 switch:

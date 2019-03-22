@@ -1,1 +1,48 @@
-[]
+- id: '1553246705531'
+  alias: Starte Wallbox
+  trigger:
+  - above: '4000'
+    entity_id: sensor.sonnen_stromeinspeisung
+    platform: numeric_state
+  - above: '5000'
+    entity_id: sensor.sonnen_einspeise_minus_speicher
+    platform: numeric_state
+  condition:
+  - above: '30'
+    condition: numeric_state
+    entity_id: sensor.sonnen_soc
+  - condition: state
+    entity_id: switch.wallbox
+    state: 'off'
+  action:
+  - data:
+      entity_id: switch.wallbox
+    service: switch.turn_on
+  - data_template:
+      message: 'Wallbox automatisch gestartet {{ trigger.to_state }} '
+      title: Start Wallbox
+    service: notify.gmail
+- id: '1553246920802'
+  alias: Stoppe Wallbox
+  trigger:
+  - below: '-200'
+    entity_id: sensor.sonnen_stromeinspeisung
+    platform: numeric_state
+  - below: '50'
+    entity_id: sensor.sonnen_soc
+    platform: numeric_state
+  - below: '2000'
+    entity_id: sensor.sonnen_stromerzeugung
+    platform: numeric_state
+  condition:
+  - condition: state
+    entity_id: switch.wallbox
+    state: 'on'
+  action:
+  - data:
+      entity_id: switch.wallbox
+    service: switch.turn_off
+  - data_template:
+      message: 'Wallbox automatisch gestopt {{ trigger.to_state }} '
+      title: Stop Wallbox
+    service: notify.gmail
