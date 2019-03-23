@@ -15,8 +15,8 @@ homeassistant:
   customize: !include customize.yaml
 
 logger:
-  #default: info
-  default: debug
+  default: info
+  #default: debug
 
 # Show links to resources in log and frontend
 introduction:
@@ -57,6 +57,17 @@ map:
 
 # Track the sun
 sun:
+
+timer:
+  charge_sleep_period:
+    name: Time to wait after automation stopped wallbox
+    duration: '00:05:00'
+
+input_boolean:
+  pause_charging:
+    name: Pausiere den ZOE Ladevorgang
+    initial: off
+    icon: mdi:car
 
 notify:
   - name: gmail

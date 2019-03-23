@@ -14,6 +14,9 @@
   - condition: state
     entity_id: switch.wallbox
     state: 'off'
+  - condition: state
+    entity_id: input_boolean.pause_charging
+    state: 'off'
   action:
   - data:
       entity_id: switch.wallbox
@@ -46,3 +49,21 @@
       message: 'Wallbox automatisch gestopt {{ trigger.to_state }} '
       title: Stop Wallbox
     service: notify.gmail
+  - data:
+      entity_id: input_boolean.pause_charging
+    service: input_boolean.turn_on
+  - data:
+      entity_id: timer.charge_sleep_period
+    service: timer.start
+- id: 'charge_sleep_period_stop'
+  alias: 'charge_sleep_period_stop'
+  trigger:
+   - platform: event
+     event_type: timer.finished
+     event_data:
+       entity_id: timer.charge_sleep_period
+  action:
+   - service: input_boolean.turn_off
+     data:
+      entity_id: input_boolean.pause_charging
+
