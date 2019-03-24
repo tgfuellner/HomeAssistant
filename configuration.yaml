@@ -43,6 +43,8 @@ updater:
 # Discover some devices automatically
 discovery:
 
+system_health:
+
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
