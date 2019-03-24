@@ -35,6 +35,7 @@ Sonnen:
     - sensor.sonnen_stromverbrauch
     - sensor.sonnen_stromerzeugung
     - sensor.sonnen_stromeinspeisung
+    - sensor.einspeisung_avg_mean
     - sensor.sonnen_stromspeicher
 Schalter:
   entities:

@@ -202,6 +202,11 @@ sensor:
         friendly_name: 'Batterie'
         unit_of_measurement: "Watt"
         value_template: '{{ states.sensor.json_sonnen.attributes["GridFeedIn_W"] - states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
+  - platform: statistics
+    name: "Einspeisung Avg"
+    entity_id: sensor.sonnen_stromeinspeisung
+    max_age:
+      minutes: 2
 
 # Für Tasmota Schalter ist "SetOption59 1" nötig
 switch:
