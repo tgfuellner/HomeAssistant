@@ -7,6 +7,10 @@
   - above: '5000'
     entity_id: sensor.sonnen_einspeise_minus_speicher
     platform: numeric_state
+  - entity_id: input_boolean.pause_charging
+    from: 'on'
+    platform: state
+    to: 'off'
   condition:
   - above: '30'
     condition: numeric_state
@@ -17,6 +21,9 @@
   - condition: state
     entity_id: input_boolean.pause_charging
     state: 'off'
+  - above: '4000'
+    condition: numeric_state
+    entity_id: sensor.sonnen_stromeinspeisung
   action:
   - data:
       entity_id: switch.wallbox
@@ -28,7 +35,7 @@
 - id: '1553246920802'
   alias: Stoppe Wallbox
   trigger:
-  - below: '-200'
+  - below: '-400'
     entity_id: sensor.sonnen_stromeinspeisung
     platform: numeric_state
   - below: '50'
@@ -55,15 +62,14 @@
   - data:
       entity_id: timer.charge_sleep_period
     service: timer.start
-- id: 'charge_sleep_period_stop'
-  alias: 'charge_sleep_period_stop'
+- id: charge_sleep_period_stop
+  alias: charge_sleep_period_stop
   trigger:
-   - platform: event
-     event_type: timer.finished
-     event_data:
-       entity_id: timer.charge_sleep_period
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.charge_sleep_period
   action:
-   - service: input_boolean.turn_off
-     data:
+  - service: input_boolean.turn_off
+    data:
       entity_id: input_boolean.pause_charging
-
