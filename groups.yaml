@@ -7,6 +7,25 @@ default_view:
     - group.Sensoren
     - group.Schalter
     - group.Sicherungskasten
+
+Wetter_View:
+  name: Graph
+  view: yes
+  entities:
+    - group.Wetter
+
+Misc_View:
+  name: Misc
+  view: yes
+  entities:
+    - group.Misc
+
+Misc:
+  name: Misc
+  entities:
+    - media_player.kuche
+    - light.aussen
+
 Wetter:
   name: Wetter
   entities:
@@ -14,11 +33,7 @@ Wetter:
     - history_graph.sonnen12
       #- history_graph.sonnen24
       #- history_graph.sonnen_woche
-Wetter_View:
-  name: Graph
-  view: yes
-  entities:
-    - group.Wetter
+
 Eingaben:
   entities:
     - input_boolean.pause_charging
