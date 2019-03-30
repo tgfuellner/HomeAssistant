@@ -2,7 +2,7 @@
   alias: Starte Wallbox
   trigger:
   - above: '4000'
-    entity_id: sensor.sonnen_stromeinspeisung
+    entity_id: sensor.einspeisung_avg_mean
     platform: numeric_state
   - above: '5000'
     entity_id: sensor.sonnen_einspeise_minus_speicher
@@ -23,7 +23,7 @@
     state: 'off'
   - above: '4000'
     condition: numeric_state
-    entity_id: sensor.sonnen_stromeinspeisung
+    entity_id: sensor.einspeisung_avg_mean
   action:
   - data:
       entity_id: switch.wallbox
@@ -36,12 +36,12 @@
   alias: Stoppe Wallbox
   trigger:
   - below: '-400'
-    entity_id: sensor.sonnen_stromeinspeisung
+    entity_id: sensor.einspeisung_avg_mean
     platform: numeric_state
   - below: '50'
     entity_id: sensor.sonnen_soc
     platform: numeric_state
-  - below: '2000'
+  - below: '1000'
     entity_id: sensor.sonnen_stromerzeugung
     platform: numeric_state
   condition:
