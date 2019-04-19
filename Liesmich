@@ -20,3 +20,10 @@ Tasmota:
 
 	Umwälzpumpe:
             rule1 on Ds18s20#Temperature<50 do power off endon on Ds18s20#Temperature>55 do power on endon
+
+	kraftgarage:
+	    rule1 on counter#c1<4294 do publish stat/kraftgarage/cee %value% endon
+	    rule2 on counter#c2<4294 do publish stat/kraftgarage/lueftung %value% endon
+	    rule1 1
+	    rule2 1
+

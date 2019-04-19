@@ -39,6 +39,10 @@ Eingaben:
     - input_boolean.pause_charging
 Sensoren:
   entities:
+    - sensor.cee_garage
+    - sensor.cee_garage_e
+    - sensor.wohnungsluftung
+    - sensor.wohnungsluftung_e
     - sensor.boiler
     - sensor.garagetemp
     - sensor.garagehum

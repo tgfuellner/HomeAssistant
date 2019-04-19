@@ -116,7 +116,7 @@ sensor:
     payload_not_available: "Offline"
   - platform: mqtt
     name: "SchreibtischThomas"
-    unit_of_measurement: "Watt"
+    unit_of_measurement: "W"
     state_topic: "tele/cothomas/SENSOR"
     value_template: '{{ value_json["ENERGY"]["Power"] }}'
     availability_topic: "tele/cothomas/LWT"
@@ -124,7 +124,7 @@ sensor:
     payload_not_available: "Offline"
   - platform: mqtt
     name: "TV"
-    unit_of_measurement: "Watt"
+    unit_of_measurement: "W"
     state_topic: "tele/tv/SENSOR"
     value_template: '{{ value_json["ENERGY"]["Power"] }}'
     availability_topic: "tele/tv/LWT"
@@ -133,7 +133,7 @@ sensor:
   - platform: mqtt
     name: "Waschen,WC,Speis P"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/0/power"
-    unit_of_measurement: "Watt"
+    unit_of_measurement: "W"
   - platform: mqtt
     name: "Waschen,WC,Speis E"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/0/energy"
@@ -142,7 +142,7 @@ sensor:
   - platform: mqtt
     name: "Wohnzimmer P"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/1/power"
-    unit_of_measurement: "Watt"
+    unit_of_measurement: "W"
   - platform: mqtt
     name: "Wohnzimmer E"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/1/energy"
@@ -151,7 +151,7 @@ sensor:
   - platform: mqtt
     name: "Gang EG P"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/2/power"
-    unit_of_measurement: "Watt"
+    unit_of_measurement: "W"
   - platform: mqtt
     name: "Gang EG E"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/2/energy"
@@ -160,12 +160,32 @@ sensor:
   - platform: mqtt
     name: "Licht Küche, Speis P"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/3/power"
-    unit_of_measurement: "Watt"
+    unit_of_measurement: "W"
   - platform: mqtt
     name: "Licht Küche, Speis E"
     value_template: "{{(value | int) / 100}}"
     state_topic: "shellies/shelly4pro-4BCBE4/relay/3/energy"
     unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "CEE Garage"
+    value_template: "{{(3600 / (value | float)) | round(0)}}"
+    state_topic: "stat/kraftgarage/cee"
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "Wohnungslüftung"
+    value_template: "{{(3600 / (value | float)) | round(0)}}"
+    state_topic: "stat/kraftgarage/lueftung"
+    unit_of_measurement: "W"
+  - platform: integration
+    name: "CEE Garage E"
+    source: sensor.cee_garage
+    unit_prefix: k
+    round: 2
+  - platform: integration
+    name: "Wohnungslüftung E"
+    source: sensor.wohnungsluftung
+    unit_prefix: k
+    round: 2
   - platform: rest
     name: JSON sonnen
     json_attributes:
@@ -180,15 +200,15 @@ sensor:
     sensors:
       sonnen_stromverbrauch:
         friendly_name: 'Verbrauch'
-        unit_of_measurement: "Watt"
+        unit_of_measurement: "W"
         value_template: '{{ states.sensor.json_sonnen.attributes["Consumption_W"] }}'
       sonnen_stromeinspeisung:
         friendly_name: 'Einspeisung'
-        unit_of_measurement: "Watt"
+        unit_of_measurement: "W"
         value_template: '{{ states.sensor.json_sonnen.attributes["GridFeedIn_W"] }}'
       sonnen_stromerzeugung:
         friendly_name: 'Produktion'
-        unit_of_measurement: "Watt"
+        unit_of_measurement: "W"
         value_template: '{{ states.sensor.json_sonnen.attributes["Production_W"] }}'
       sonnen_soc:
         friendly_name: 'SOC'
@@ -196,11 +216,11 @@ sensor:
         value_template: '{{ states.sensor.json_sonnen.attributes["USOC"] }}'
       sonnen_stromspeicher:
         friendly_name: 'Batterie'
-        unit_of_measurement: "Watt"
+        unit_of_measurement: "W"
         value_template: '{{ states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
       sonnen_einspeise_minus_speicher:
         friendly_name: 'Batterie'
-        unit_of_measurement: "Watt"
+        unit_of_measurement: "W"
         value_template: '{{ states.sensor.json_sonnen.attributes["GridFeedIn_W"] - states.sensor.json_sonnen.attributes["Pac_total_W"] }}'
   - platform: statistics
     name: "Einspeisung Avg"
