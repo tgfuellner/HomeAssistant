@@ -22,8 +22,12 @@ Tasmota:
             rule1 on Ds18s20#Temperature<50 do power off endon on Ds18s20#Temperature>55 do power on endon
 
 	kraftgarage:
-	    rule1 on counter#c1<4294 do publish stat/kraftgarage/cee %value% endon
+	    teleperiod 60
+            countertype1 0
+            rule1 on Time#Minute==1 do counter1 0 endon
+            rule1 1
+
+            countertype2 1
 	    rule2 on counter#c2<4294 do publish stat/kraftgarage/lueftung %value% endon
-	    rule1 1
 	    rule2 1
 

@@ -27,6 +27,13 @@ frontend:
 # Enables configuration UI
 config:
 
+python_script:
+
+#utility_meter:
+#  energy:
+#    source: sensor.cee_garage_e
+#    cycle: daily
+
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 # http:
 #   base_url: example.duckdns.org:8123
@@ -167,20 +174,15 @@ sensor:
     state_topic: "shellies/shelly4pro-4BCBE4/relay/3/energy"
     unit_of_measurement: "kWh"
   - platform: mqtt
-    name: "CEE Garage"
-    value_template: "{{(3600 / (value | float)) | round(0)}}"
-    state_topic: "stat/kraftgarage/cee"
-    unit_of_measurement: "W"
+    name: "CEE Garage E"
+    value_template: '{{ (value_json["COUNTER"]["C1"] | float * 0.001) | round(2)  }}'
+    state_topic: "tele/kraftgarage/SENSOR"
+    unit_of_measurement: "kWh"
   - platform: mqtt
     name: "Wohnungslüftung"
     value_template: "{{(3600 / (value | float)) | round(0)}}"
     state_topic: "stat/kraftgarage/lueftung"
     unit_of_measurement: "W"
-  - platform: integration
-    name: "CEE Garage E"
-    source: sensor.cee_garage
-    unit_prefix: k
-    round: 2
   - platform: integration
     name: "Wohnungslüftung E"
     source: sensor.wohnungsluftung
