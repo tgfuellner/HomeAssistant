@@ -1,10 +1,10 @@
 - id: '1553246705531'
   alias: Starte Wallbox
   trigger:
-  - above: '4000'
+  - above: '2000'
     entity_id: sensor.einspeisung_avg_mean
     platform: numeric_state
-  - above: '5000'
+  - above: '3000'
     entity_id: sensor.sonnen_einspeise_minus_speicher
     platform: numeric_state
   - entity_id: input_boolean.pause_charging
@@ -21,7 +21,7 @@
   - condition: state
     entity_id: input_boolean.pause_charging
     state: 'off'
-  - above: '4000'
+  - above: '2000'
     condition: numeric_state
     entity_id: sensor.einspeisung_avg_mean
   action:
