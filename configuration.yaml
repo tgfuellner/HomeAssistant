@@ -130,6 +130,22 @@ sensor:
     payload_available: "Online"
     payload_not_available: "Offline"
   - platform: mqtt
+    name: "Ueberfluss P"
+    unit_of_measurement: "W"
+    state_topic: "tele/ueberfluss/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    availability_topic: "tele/ueberfluss/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
+    name: "Ueberfluss E"
+    unit_of_measurement: "kWh"
+    state_topic: "tele/ueberfluss/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    availability_topic: "tele/ueberfluss/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+  - platform: mqtt
     name: "TV"
     unit_of_measurement: "W"
     state_topic: "tele/tv/SENSOR"
@@ -250,6 +266,18 @@ switch:
     value_template: "{{ value_json.POWER }}"
     command_topic: "cmnd/cothomas/POWER"
     availability_topic: "tele/cothomas/LWT"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: false
+  - platform: mqtt
+    name: "Ueberfluss"
+    state_topic: "tele/ueberfluss/STATE"
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/ueberfluss/POWER"
+    availability_topic: "tele/ueberfluss/LWT"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"

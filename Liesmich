@@ -13,6 +13,7 @@ Homeassistant Update:
 
 Tasmota:
 	SetOption59 1    # Für switches Verhalten in Homeassist
+	Timezone 99
 
 	TV: Um =00:30 wenn Energieaufnahme<70W --> Schalte aus
             rule1 on Time#Minute=30 do rule2 1 endon

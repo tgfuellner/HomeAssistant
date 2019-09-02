@@ -47,6 +47,8 @@ Sensoren:
     - sensor.garagehum
     - sensor.schreibtischthomas
     - sensor.tv
+    - sensor.ueberfluss_p
+    - sensor.ueberfluss_e
 Sonnen:
   entities:
     - sensor.sonnen_soc
