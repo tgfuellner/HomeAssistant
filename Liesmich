@@ -19,11 +19,14 @@ Tasmota:
             rule1 on Time#Minute=90 do rule2 1 endon
             rule2 on Energy#Power<50 do backlog power off; rule2 0 endon
             rule3 on Time#Minute=240 do rule2 0 endon
+            rule1 1
 
 
 	Umwälzpumpe:
             Geräte Einstellung: Sonoff Basic(1) GPIO3=DS18x20 (4)
-            rule1 on Ds18s20#Temperature<50 do power off endon on Ds18s20#Temperature>55 do power on endon
+            rule1 on Time#Minute do rule2 1 endon
+            rule2 on Ds18s20#Temperature<50 do backlog power off; rule2 0 endon on Ds18s20#Temperature>55 do backlog power on; rule2 0 endon
+            rule1 1
 
 	kraftgarage:
             Geräte Einstellung: Sonoff Basic(1) GPIO1=Counter2 (43) GPIO14=Counter1 (42)
