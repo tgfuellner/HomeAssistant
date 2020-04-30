@@ -39,3 +39,9 @@ Tasmota:
 	    rule2 on counter#c2<4294 do publish stat/kraftgarage/lueftung %value% endon
 	    rule2 1
 
+        charger:
+            #rule1 on button1#state do backlog power1 %value%; RuleTimer1 10 endon on Rules#Timer=1 do power1 off endon
+            #backlog ledpower on; ledpower off
+            # 1 press=ein nächster press=900s weiterer press=1800s
+            rule1 on button1#state do backlog power1 on; add1 900; RuleTimer1 %var1% endon on Rules#Timer=1 do backlog power1 off; var1 0 endon
+
