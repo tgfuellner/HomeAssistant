@@ -22,9 +22,11 @@ Tasmota:
 
 
 	Umwälzpumpe:
+            Geräte Einstellung: Sonoff Basic(1) GPIO3=DS18x20 (4)
             rule1 on Ds18s20#Temperature<50 do power off endon on Ds18s20#Temperature>55 do power on endon
 
 	kraftgarage:
+            Geräte Einstellung: Sonoff Basic(1) GPIO1=Counter2 (43) GPIO14=Counter1 (42)
 	    teleperiod 60
             countertype1 0
             rule1 on Time#Minute==1 do counter1 0 endon
