@@ -42,6 +42,22 @@ Tasmota:
         charger:
             #rule1 on button1#state do backlog power1 %value%; RuleTimer1 10 endon on Rules#Timer=1 do power1 off endon
             #backlog ledpower on; ledpower off
+
             # 1 press=ein nächster press=900s weiterer press=1800s
             rule1 on button1#state do backlog power1 on; add1 900; RuleTimer1 %var1% endon on Rules#Timer=1 do backlog power1 off; var1 0 endon
 
+            # Ohne nutzlosen initialen press (scheinbar wird %var1% schon vor add1 ausgewertet)
+            rule1 on button1#state do backlog power1 on; add1 900; event setRuleTimer endon on Rules#Timer=1 do backlog power1 off; var1 0 endon
+            rule2 on Event#setRuleTimer do RuleTimer1 %var1% endon
+            rule1 1
+            rule2 1
+
+            
+            # Version mit Blinken
+            rule1 on button1#state do backlog power1 on; rule2 1; add1 1; RuleTimer1 600; RuleTimer2 4 endon on Var1#state<=0 do backlog power1 off; rule2 0 endon
+            rule2 on Rules#Timer=1 do backlog sub1 1; RuleTimer1 600 endon
+
+	    # Alle 9 Sekunden var1 mal Blinken
+	    rule3 on Rules#Timer=2 do backlog var2 %var1%; RuleTimer2 9 endon on Var2#state>0 do backlog ledpower on; ledpower off; sub2 1 endon
+
+            backlog rule1 1; rule2 0; rule3 1
