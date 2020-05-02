@@ -60,7 +60,7 @@ Tasmota:
 	    # Alle 9 Sekunden var1 mal Blinken
 	    #rule3 on Rules#Timer=2 do backlog var2 %var1%; RuleTimer2 7 endon on Var2#state>0 do backlog ledpower on; ledpower off; sub2 1 endon
             # var1 mal blinken 2s pause ...
-            rule3 on Var2#state>0 do backlog ledpower on; ledpower off; sub2 1 endon on Var2#state<=0 do backlog delay 20; var2 %var1% endon
+            rule3 on Var2#state>0 do backlog ledpower on; ledpower off; sub2 1 endon on Var2#state<=0 do RuleTimer2 2 endon
 
 
             backlog rule1 1; rule2 0; rule3 1
