@@ -1,4 +1,9 @@
+Pack Database:
+        Dienst recorder.purge mit {"keep_days":  "7", "repack": "true"}
+        Oder einfach db File löschen
+
 Homeassistant check config:
+        systemctl status home-assistant@homeassistant.service
 	sudo -u homeassistant -H -s
 	source /srv/homeassistant/bin/activate
 	hass --script check_config
@@ -22,6 +27,11 @@ Tasmota:
             rule1 1
 
 
+	ueberfluss:
+            Sonoff Pow(6)
+            Zeitplan Sonnen Auf/Untergang
+            Gesamt Energie am 2020-05-06: 208 kWh
+            
 	Umwälzpumpe, host=pumpe:
             Geräte Einstellung: Sonoff S2X(8) GPIO3=DS18x20 (4)
             rule1 on Time#Minute do rule2 1 endon
