@@ -6,6 +6,7 @@
 !.gitignore
 !*.md
 !Liesmich
+!python_scripts/daily_reset.py
 
 # Ignore folders.
 .storage
