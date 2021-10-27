@@ -58,6 +58,7 @@ Sonnen:
     - sensor.sonnen_stromeinspeisung
     - sensor.einspeisung_avg_mean
     - sensor.sonnen_stromspeicher
+    - sensor.ladewagen_soc
 Schalter:
   entities:
     - switch.umwalzpumpe

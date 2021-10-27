@@ -251,6 +251,11 @@ sensor:
     entity_id: sensor.sonnen_stromeinspeisung
     max_age:
       minutes: 2
+  - platform: mqtt
+    name: "Ladewagen SOC"
+    state_topic: "N/0c1c57127018/system/0/Dc/Battery/Soc"
+    unit_of_measurement: "%"
+    value_template: '{{ value_json["value"] | float | round(2) }}'
 
 # Für Tasmota Schalter ist "SetOption59 1" nötig
 switch:
