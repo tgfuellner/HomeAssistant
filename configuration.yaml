@@ -96,6 +96,13 @@ notify:
 sensor:
   # Weather prediction
   - platform: yr
+  - platform: rest
+    name: "Einspeiser"
+    scan_interval: 30
+    resource: http://192.168.0.47/solar_api/v1/GetPowerFlowRealtimeData.fcgi?Scope=System
+    value_template: "{{ value_json.Body.Data.Inverters['1'].P | float | round(2) }}"
+    unit_of_measurement: "W"
+    force_update: true
   - platform: mqtt
     name: "Boiler"
     unit_of_measurement: "°C"

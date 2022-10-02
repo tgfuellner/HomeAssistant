@@ -39,6 +39,7 @@ Eingaben:
     - input_boolean.pause_charging
 Sensoren:
   entities:
+    - sensor.einspeiser
     - sensor.cee_garage_e
     - sensor.wohnungsluftung
     - sensor.wohnungsluftung_e
